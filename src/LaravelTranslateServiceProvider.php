@@ -12,10 +12,11 @@ class LaravelTranslateServiceProvider extends PackageServiceProvider
     public function boot()
     {
         $provider = config('translate.provider', 'google');
+        $providerClass = config("translate.providers.{$provider}.package");
 
         $this->app->bind(
             Translate::class,
-            config("translate.providers.{$provider}.package")
+            $this->app->make($providerClass)
         );
 
         return parent::boot();
