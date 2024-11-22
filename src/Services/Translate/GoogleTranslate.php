@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace RPWebDevelopment\LaravelTranslate\Services;
+namespace RPWebDevelopment\LaravelTranslate\Services\Translate;
 
+use RPWebDevelopment\LaravelTranslate\Contracts\Translate;
 use Stichoza\GoogleTranslate\GoogleTranslate as GoogleTranslateService;
 
 class GoogleTranslate extends Translate

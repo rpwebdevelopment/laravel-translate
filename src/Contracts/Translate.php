@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RPWebDevelopment\LaravelTranslate\Services;
+namespace RPWebDevelopment\LaravelTranslate\Contracts;
 
 abstract class Translate
 {

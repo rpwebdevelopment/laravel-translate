@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace RPWebDevelopment\LaravelTranslate\Services;
+namespace RPWebDevelopment\LaravelTranslate\Services\Translate;
 
-use RPWebDevelopment\LaravelTranslate\Services\Translate;
 use Deepl\Translator;
+use RPWebDevelopment\LaravelTranslate\Contracts\Translate;
 
 class DeeplTranslate extends Translate
 {
