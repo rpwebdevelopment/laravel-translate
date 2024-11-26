@@ -2,6 +2,7 @@
 
 namespace RPWebDevelopment\LaravelTranslate;
 
+use RPWebDevelopment\LaravelTranslate\Services\Files;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use RPWebDevelopment\LaravelTranslate\Commands\LaravelTranslateCommand;
@@ -10,6 +11,7 @@ class LaravelTranslateServiceProvider extends PackageServiceProvider
 {
     public function boot(): PackageServiceProvider
     {
+        $dir = config('translate.lang_directory');
         $reader = config('translate.reader', 'php');
         $provider = config('translate.provider', 'google');
 
@@ -24,6 +26,11 @@ class LaravelTranslateServiceProvider extends PackageServiceProvider
         $this->app->bind(
             'reader',
             fn () => new ($readerClass)()
+        );
+
+        $this->app->bind(
+            'files',
+            fn () => new Files($reader, $dir)
         );
 
         return parent::boot();
