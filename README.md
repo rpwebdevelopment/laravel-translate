@@ -1,19 +1,16 @@
 # Package for generating translated lang files
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/rpwebdevelopment/laravel-translate.svg?style=flat-square)](https://packagist.org/packages/rpwebdevelopment/laravel-translate)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/rpwebdevelopment/laravel-translate/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/rpwebdevelopment/laravel-translate/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/rpwebdevelopment/laravel-translate/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/rpwebdevelopment/laravel-translate/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/rpwebdevelopment/laravel-translate.svg?style=flat-square)](https://packagist.org/packages/rpwebdevelopment/laravel-translate)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Laravel Translate is a tool intended to automatically generate translated language files. Currently, the package
+leverages either [DeepL API](https://github.com/DeepLcom/deepl-php) or the amazing 
+[Google Translate](https://github.com/Stichoza/google-translate-php) package 
+from [Stichoza](https://github.com/Stichoza) which allows for zero configuration usage.
 
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-translate.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-translate)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+The default configuration makes use of Google translations and can be used straight out of the box with no sign-up 
+or configuration. If you would rather use the DeepL translations API you will need to sign up 
+[here](https://www.deepl.com/en/pro#developer); DeepL configuration details described below.
 
 ## Installation
 
@@ -23,61 +20,142 @@ You can install the package via composer:
 composer require rpwebdevelopment/laravel-translate
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="laravel-translate-migrations"
-php artisan migrate
-```
-
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-translate-config"
+php artisan vendor:publish --tag="translate-config"
 ```
 
 This is the contents of the published config file:
 
 ```php
 return [
+    'reader' => 'php',
+    'default_source' => 'en_GB',
+    'lang_directory' => base_path('resources/lang'),
+    'provider' => 'google',
+    'providers' => [
+        'google' => [
+            'package' => GoogleTranslate::class,
+        ],
+        'deepl' => [
+            'package' => DeeplTranslate::class,
+            'token' => env('DEEPL_AUTH_TOKEN', null),
+        ],
+    ],
+    'readers' => [
+        'php' => PhpReader::class,
+        'json' => JsonReader::class,
+    ],
+    'writers' => [
+        'php' => PhpWriter::class,
+        'json' => JsonWriter::class,
+    ],
 ];
 ```
+## DeepL Configuration
 
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-translate-views"
-```
+In order to make use of the DeepL API wou will need to publish the config file as detailed above
+and update the provider to `deepl`. You will then need to add your DeepL API auth token to your
+`.env` file under the env variable `DEEPL_AUTH_TOKEN`.
 
 ## Usage
 
+This package is designed to function with as much flexibility as possible, as such it is designed
+to work for multiple configurations with minimal configurations, whether you have a single file or 
+directory per language, or if you are using PHP lang files or JSON lang files.
+
 ```php
-$laravelTranslate = new RPWebDevelopment\LaravelTranslate();
-echo $laravelTranslate->echoPhrase('Hello, RPWebDevelopment!');
+php artisan laravel-translate {target} {--source=?} {--file=?}
 ```
 
-## Testing
+## Example Usages
+
+### Directory Structure:
+
+Example directory structure:
 
 ```bash
-composer test
+resources 
+|----lang
+     |----en_GB
+          |----auth.php
+          |----global.php
+
 ```
 
-## Changelog
+Assuming the config `default_source` is set to `en_GB`; for the above structure the following command:
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+```php
+php artisan laravel-translate fr_FR
+```
+Would produce the following structure:
 
-## Contributing
+```bash
+resources 
+|----lang
+     |----en_GB
+     |    |----auth.php
+     |    |----global.php
+     |----fr_FR
+          |----auth.php
+          |----global.php
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+```
 
-## Security Vulnerabilities
+Alternately, you can explicitly declare the source locale:
 
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+```php
+php artisan laravel-translate fr_FR --source=en_GB
+```
+
+If you are only wanting to replace a specific file you can also pass in the file option (note the file extension is optional):
+
+```php
+php artisan laravel-translate fr_FR --source=en_GB --file=auth
+```
+ 
+### Single File Structure
+
+If you are using a single file per language rather than a directory structure as below:
+
+```bash
+resources 
+|----lang
+     |----en_GB.php
+     |----fr_FR.php
+
+```
+
+You can use the exact same command syntax, so the following:
+
+```php
+php artisan laravel-translate de_DE --source=en_GB
+```
+
+Would result in the following output:
+```bash
+resources 
+|----lang
+     |----en_GB.php
+     |----fr_FR.php
+     |----de_DE.php
+
+```
+
+## Notes
+
+- Any existing translations will be overridden, it is recommended that you back-up any previously 
+created lang files to allow for easy restoration if required.
+
+- Translations are a result of machine translation and therefore some translation errors may occur.
+
+- While efforts have been made to persist lang string attributes, their persistence cannot be 100%
+guaranteed, as such it is recommended to verify your files after production. 
 
 ## Credits
 
 - [Richard Porter](https://github.com/rpwebdevelopment)
-- [All Contributors](../../contributors)
 
 ## License
 

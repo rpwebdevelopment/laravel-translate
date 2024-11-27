@@ -1,6 +1,6 @@
 {
     "name": "rpwebdevelopment/laravel-translate",
-    "description": "Package for generating translated lang files",
+    "description": "Package for generating translated language files",
     "keywords": [
         "RPWebDevelopment",
         "laravel",

@@ -8,10 +8,64 @@ use RPWebDevelopment\LaravelTranslate\Services\Writer\JsonWriter;
 use RPWebDevelopment\LaravelTranslate\Services\Writer\PhpWriter;
 
 return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Reader
+    |--------------------------------------------------------------------------
+    |
+    | This option dictates te filetypes read from and written to in the
+    | translation process.
+    |
+    | Supported: "php", "json"
+    |
+    */
     'reader' => 'php',
-    'default_source' => 'en',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Language Source
+    |--------------------------------------------------------------------------
+    |
+    | This option indicates the source directory/file translations will
+    | be derived from, this can be overridden with the --source option of
+    | the translation command.
+    |
+    */
+    'default_source' => 'en_GB',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Root Language Directory
+    |--------------------------------------------------------------------------
+    |
+    | This option indicates the root directory of all language files.
+    |
+    */
     'lang_directory' => base_path('resources/lang'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Translation Provider
+    |--------------------------------------------------------------------------
+    |
+    | This option indicates Translation service to be used for generating
+    | translated strings.
+    |
+    | Supported: "google", "deepl"
+    |
+    */
     'provider' => 'google',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Translation Providers
+    |--------------------------------------------------------------------------
+    |
+    | Definitions and required configurations for available translation
+    | providers.
+    |
+    */
     'providers' => [
         'google' => [
             'package' => GoogleTranslate::class,
