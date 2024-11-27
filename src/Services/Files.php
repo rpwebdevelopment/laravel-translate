@@ -19,9 +19,9 @@ class Files
     }
 
     /** @throws SourceNotFoundException */
-    public function parse(string $sourceLang, string $targetLang): self
+    public function parse(string $sourceLang, string $targetLang, ?string $file = null): self
     {
-        $this->setScanStructure($sourceLang, $targetLang);
+        $this->setScanStructure($sourceLang, $targetLang, $file);
 
         return $this;
     }
@@ -32,7 +32,7 @@ class Files
     }
 
     /** @throws SourceNotFoundException */
-    private function setScanStructure(string $sourceLang, string $targetLang): void
+    private function setScanStructure(string $sourceLang, string $targetLang, ?string $file): void
     {
         $sourceLang = $this->cleanString($sourceLang);
         $path = $this->directory . DIRECTORY_SEPARATOR . $sourceLang;
@@ -40,13 +40,27 @@ class Files
         $targetFile = $target . '.' . $this->filetype;
         $pathFile = $path . '.' . $this->filetype;
 
-        if (str_ends_with($sourceLang, '.' . $this->filetype) && is_file($path)) {
+        if ($file) {
+            $filename = $this->hasFileExtension($file) ? $file : $file . '.' . $this->filetype;
+            $path = $path . DIRECTORY_SEPARATOR . $filename;
+            $targetFile = $target . DIRECTORY_SEPARATOR . $filename;
+
+            if (!is_file($path)) {
+                throw new SourceNotFoundException();
+            }
+
             $this->structure = [$path => $targetFile];
 
             return;
         }
 
-        if (!str_ends_with($sourceLang, $this->filetype) && is_dir($path)) {
+        if ($this->hasFileExtension($sourceLang) && is_file($path)) {
+            $this->structure = [$path => $targetFile];
+
+            return;
+        }
+
+        if (!$this->hasFileExtension($sourceLang) && is_dir($path)) {
             $search = $path . DIRECTORY_SEPARATOR . '*.' . $this->filetype;
 
             foreach (glob($search) as $file) {
@@ -56,7 +70,7 @@ class Files
             return;
         }
 
-        if (!str_ends_with($sourceLang, $this->filetype) && is_file($pathFile)) {
+        if (!$this->hasFileExtension($sourceLang) && is_file($pathFile)) {
             $this->structure = [$pathFile => $targetFile];
 
             return;
@@ -68,5 +82,10 @@ class Files
     private function cleanString(string $string): string
     {
         return rtrim(ltrim($string, ' /.'), ' /');
+    }
+
+    private function hasFileExtension(string $path): bool
+    {
+        return str_ends_with($path,  '.' . $this->filetype);
     }
 }

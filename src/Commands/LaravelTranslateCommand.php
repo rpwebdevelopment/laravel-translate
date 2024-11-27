@@ -14,7 +14,10 @@ use Symfony\Component\Console\Helper\ProgressBar;
 
 class LaravelTranslateCommand extends Command
 {
-    public $signature = 'laravel-translate {target} {--source=}';
+    public $signature = 'laravel-translate
+        { target : Target language to be translated into }
+        { --source= : source language to derive translations from }
+        { --file= : specific file to translate }';
 
     public $description = 'Processes and stores translations from source file';
 
@@ -23,13 +26,14 @@ class LaravelTranslateCommand extends Command
         $this->info('Loading source...');
         $target = $this->argument('target');
         $source = $this->option('source') ?? config('translate.default_source');
+        $file = $this->option('file');
 
         try {
             ProgressBar::setFormatDefinition('custom', ' %message% [%bar%] %current%/%max% ');
             $progress = $this->output->createProgressBar();
             $progress->setFormat('custom');
 
-            $files = FileProcessor::parse($source, $target)->getStructure();
+            $files = FileProcessor::parse($source, $target, $file)->getStructure();
             $reader = Reader::read($files);
 
             $translations = Translate::reader($reader, $target, $source, $progress);
