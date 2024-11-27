@@ -9,7 +9,8 @@ use RPWebDevelopment\LaravelTranslate\Contracts\Reader as ReaderAlias;
 
 /**
  * @See ReaderAlias
- * @method static ReaderAlias read(string $source = 'en')
+ * @method ReaderAlias read(string $source = 'en')
+ * @method array getTargets()
  */
 class Reader extends Facade
 {

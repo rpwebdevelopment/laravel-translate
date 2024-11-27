@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace RPWebDevelopment\LaravelTranslate\Facades;
 
 use Illuminate\Support\Facades\Facade;
+use \RPWebDevelopment\LaravelTranslate\Contracts\Reader;
 
 /**
  * @See \RPWebDevelopment\LaravelTranslate\Contracts\Translate
- * @method static ?string translate(string $string, string $targetLang, string $sourceLang = 'en_GB')
+ * @method ?string translate(string $string, string $targetLang, string $sourceLang = 'en_GB')
+ * @method array reader(Reader $reader)
  */
 class Translate extends Facade
 {

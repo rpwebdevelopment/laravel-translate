@@ -9,7 +9,7 @@ use RPWebDevelopment\LaravelTranslate\Services\Files as FilesAlias;
 
 /**
  * @See FilesAlias
- * @method static parse(string $sourceLanguage, string $targetLanguage)
+ * @method parse(string $sourceLanguage, string $targetLanguage)
  */
 class FileProcessor extends Facade
 {

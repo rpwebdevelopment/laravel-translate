@@ -25,8 +25,7 @@ class LaravelTranslateCommand extends Command
         try {
             $files = FileProcessor::parse($source, $target)->getStructure();
             $reader = Reader::read($files);
-            dd($reader, $files);
-
+            Translate::reader($reader);
         } catch (Exception $e) {
             $this->error($e->getMessage());
 

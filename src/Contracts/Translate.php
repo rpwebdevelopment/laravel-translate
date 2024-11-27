@@ -11,4 +11,12 @@ abstract class Translate
         string $targetLang,
         string $sourceLang = 'en_GB'
     ): ?string;
+
+    public function reader(Reader $reader): array
+    {
+        $targets = $reader->getTargets();
+        dd($targets);
+
+        return $targets;
+    }
 }
