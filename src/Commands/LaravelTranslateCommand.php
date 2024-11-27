@@ -12,19 +12,18 @@ use RPWebDevelopment\LaravelTranslate\Facades\Translate;
 
 class LaravelTranslateCommand extends Command
 {
-    public $signature = 'laravel-translate
-        {lang? : The language being translated into}
-        {--source= : The filepath for the lang files to be translated}';
+    public $signature = 'laravel-translate {target} {--source=}';
 
     public $description = 'Processes and stores translations from source file';
 
     public function handle(): int
     {
         $this->info('Loading source...');
+        $target = $this->option('target') ?? 'fr';
         $source = $this->option('source') ?? 'en';
 
         try {
-            $files = FileProcessor::parse($source)->getStructure();
+            $files = FileProcessor::parse($source, $target)->getStructure();
             $reader = Reader::read($files);
             dd($reader, $files);
 

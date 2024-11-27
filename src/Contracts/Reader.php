@@ -12,7 +12,7 @@ abstract class Reader
     {
         $this->files = $files;
 
-        foreach ($this->files as $file) {
+        foreach ($this->files as $file => $target) {
             $this->files[$file] = $this->readFile($file);
         }
 
