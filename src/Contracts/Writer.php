@@ -21,6 +21,7 @@ abstract class Writer
         $this->command = $command;
 
         foreach ($translationFiles as $filepath => $translations) {
+            $this->validateDirectory($filepath);
             $this->validateFile($filepath);
 
             if (!$stream = fopen($filepath, 'w')) {
@@ -34,10 +35,28 @@ abstract class Writer
     }
 
     /** @throws TargetFileNotFoundException */
+    private function validateDirectory(string $filepath): void
+    {
+        $directory = dirname($filepath);
+
+        if (!is_dir($directory)) {
+            $continue = $this->command
+                ->confirm("Directory `{$directory}` doesn't exist, create?", true);
+
+            if (!$continue) {
+                throw new TargetFileNotFoundException();
+            }
+
+            mkdir($directory, 0755, true);
+        }
+    }
+
+    /** @throws TargetFileNotFoundException */
     private function validateFile(string $filepath): void
     {
         if (!is_file($filepath)) {
-            $continue = $this->command->confirm("File doesn't exist: {$filepath}, create?", true);
+            $continue = $this->command
+                ->confirm("File `{$filepath}` doesn't exist, create?", true);
 
             if (!$continue) {
                 throw new TargetFileNotFoundException();
