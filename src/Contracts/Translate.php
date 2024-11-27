@@ -42,7 +42,27 @@ abstract class Translate
 
     private function processArray(&$value): void
     {
+        $value = $this->cleanAttributes($value);
         $value = $this->translate($value, $this->targetLanguage, $this->sourceLanguage);
+        $value = $this->restoreAttributes($value);
         $this->progressBar->advance();
+    }
+
+    private function cleanAttributes(string $value): string
+    {
+        return preg_replace_callback(
+            '/\:[a-zA-Z0-9_-]*/',
+            fn ($matches) => sprintf('*VAR_%s_VAR*', $matches[0]),
+            $value
+        );
+    }
+
+    private function restoreAttributes(string $value): string
+    {
+        return preg_replace_callback(
+            '/\*VAR_(.*?)_VAR\*/',
+            fn ($matches) => $matches[1],
+            $value
+        );
     }
 }
