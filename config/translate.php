@@ -4,8 +4,13 @@ use RPWebDevelopment\LaravelTranslate\Services\Reader\JsonReader;
 use RPWebDevelopment\LaravelTranslate\Services\Reader\PhpReader;
 use RPWebDevelopment\LaravelTranslate\Services\Translate\DeeplTranslate;
 use RPWebDevelopment\LaravelTranslate\Services\Translate\GoogleTranslate;
+use RPWebDevelopment\LaravelTranslate\Services\Writer\JsonWriter;
+use RPWebDevelopment\LaravelTranslate\Services\Writer\PhpWriter;
 
 return [
+    'reader' => 'php',
+    'default_source' => 'en',
+    'lang_directory' => base_path('resources/lang'),
     'provider' => 'google',
     'providers' => [
         'google' => [
@@ -16,11 +21,12 @@ return [
             'token' => env('DEEPL_AUTH_TOKEN', null),
         ],
     ],
-    'reader' => 'php',
     'readers' => [
         'php' => PhpReader::class,
         'json' => JsonReader::class,
     ],
-    'lang_directory' => base_path('resources/lang'),
-    'default_source' => 'en',
+    'writers' => [
+        'php' => PhpWriter::class,
+        'json' => JsonWriter::class,
+    ],
 ];

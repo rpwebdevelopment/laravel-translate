@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace RPWebDevelopment\LaravelTranslate\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use RPWebDevelopment\LaravelTranslate\Contracts\Reader as ReaderAlias;
+use RPWebDevelopment\LaravelTranslate\Contracts\Reader as ReaderContract;
 
 /**
- * @See ReaderAlias
- * @method ReaderAlias read(array $files)
+ * @See ReaderContract
+ * @method ReaderContract read(array $files)
  * @method array getTargets()
  */
 class Reader extends Facade

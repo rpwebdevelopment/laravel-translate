@@ -9,6 +9,7 @@ use Illuminate\Console\Command;
 use RPWebDevelopment\LaravelTranslate\Facades\FileProcessor;
 use RPWebDevelopment\LaravelTranslate\Facades\Reader;
 use RPWebDevelopment\LaravelTranslate\Facades\Translate;
+use RPWebDevelopment\LaravelTranslate\Facades\Writer;
 use Symfony\Component\Console\Helper\ProgressBar;
 
 class LaravelTranslateCommand extends Command
@@ -31,7 +32,8 @@ class LaravelTranslateCommand extends Command
             $files = FileProcessor::parse($source, $target)->getStructure();
             $reader = Reader::read($files);
 
-            Translate::reader($reader, $target, $source, $progress);
+            $translations = Translate::reader($reader, $target, $source, $progress);
+            Writer::write($translations, $this);
         } catch (Exception $e) {
             $this->error($e->getMessage());
 

@@ -16,6 +16,7 @@ class LaravelTranslateServiceProvider extends PackageServiceProvider
         $provider = config('translate.provider', 'google');
 
         $readerClass = config("translate.readers.{$reader}");
+        $writerClass = config("translate.writers.{$reader}");
         $providerClass = config("translate.providers.{$provider}.package");
 
         $this->app->bind(
@@ -26,6 +27,11 @@ class LaravelTranslateServiceProvider extends PackageServiceProvider
         $this->app->bind(
             'reader',
             fn () => new ($readerClass)()
+        );
+
+        $this->app->bind(
+            'writer',
+            fn () => new ($writerClass)()
         );
 
         $this->app->bind(
