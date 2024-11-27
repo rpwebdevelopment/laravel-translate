@@ -9,6 +9,7 @@ use Illuminate\Console\Command;
 use RPWebDevelopment\LaravelTranslate\Facades\FileProcessor;
 use RPWebDevelopment\LaravelTranslate\Facades\Reader;
 use RPWebDevelopment\LaravelTranslate\Facades\Translate;
+use Symfony\Component\Console\Helper\ProgressBar;
 
 class LaravelTranslateCommand extends Command
 {
@@ -23,9 +24,14 @@ class LaravelTranslateCommand extends Command
         $source = $this->option('source') ?? config('translate.default_source');
 
         try {
+            ProgressBar::setFormatDefinition('custom', ' %message% [%bar%] %current%/%max% ');
+            $progress = $this->output->createProgressBar();
+            $progress->setFormat('custom');
+
             $files = FileProcessor::parse($source, $target)->getStructure();
             $reader = Reader::read($files);
-            Translate::reader($reader);
+
+            Translate::reader($reader, $target, $source, $progress);
         } catch (Exception $e) {
             $this->error($e->getMessage());
 
