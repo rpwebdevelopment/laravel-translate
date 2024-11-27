@@ -17,7 +17,7 @@ class LaravelTranslateCommand extends Command
     public $signature = 'laravel-translate
         { target : Target language to be translated into }
         { --source= : source language to derive translations from }
-        { --file= : specific file to translate }';
+        { --file= : specific file to generate translations for }';
 
     public $description = 'Processes and stores translations from source file';
 
