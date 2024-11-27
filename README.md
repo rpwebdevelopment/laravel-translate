@@ -1,7 +1,9 @@
 # Package for generating translated lang files
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/rpwebdevelopment/laravel-translate.svg?style=flat-square)](https://packagist.org/packages/rpwebdevelopment/laravel-translate)
-[![Total Downloads](https://img.shields.io/packagist/dt/rpwebdevelopment/laravel-translate.svg?style=flat-square)](https://packagist.org/packages/rpwebdevelopment/laravel-translate)
+![Packagist Version](https://img.shields.io/packagist/v/rpwebdevelopment/laravel-translate)
+![Packagist Downloads](https://img.shields.io/packagist/dt/rpwebdevelopment/laravel-translate)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blueviolet.svg)](https://github.com/DeepLcom/deepl-php/blob/main/LICENSE)
+
 
 Laravel Translate is a tool intended to automatically generate translated language files. Currently, the package
 leverages either [DeepL API](https://github.com/DeepLcom/deepl-php) or the amazing 
