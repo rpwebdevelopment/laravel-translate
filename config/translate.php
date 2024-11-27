@@ -22,4 +22,5 @@ return [
         'json' => JsonReader::class,
     ],
     'lang_directory' => base_path('resources/lang'),
+    'default_source' => 'en',
 ];

@@ -19,8 +19,8 @@ class LaravelTranslateCommand extends Command
     public function handle(): int
     {
         $this->info('Loading source...');
-        $target = $this->option('target') ?? 'fr';
-        $source = $this->option('source') ?? 'en';
+        $target = $this->argument('target');
+        $source = $this->option('source') ?? config('translate.default_source');
 
         try {
             $files = FileProcessor::parse($source, $target)->getStructure();

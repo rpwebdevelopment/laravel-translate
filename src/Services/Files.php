@@ -38,7 +38,7 @@ class Files
         $path = $this->directory . DIRECTORY_SEPARATOR . $sourceLang;
         $target = $this->directory . DIRECTORY_SEPARATOR . $targetLang;
         $targetFile = $target . '.' . $this->filetype;
-        $pathFile = $path . '.' . $targetFile;
+        $pathFile = $path . '.' . $this->filetype;
 
         if (str_ends_with($sourceLang, '.' . $this->filetype) && is_file($path)) {
             $this->structure = [$path => $targetFile];
@@ -48,10 +48,9 @@ class Files
 
         if (!str_ends_with($sourceLang, $this->filetype) && is_dir($path)) {
             $search = $path . DIRECTORY_SEPARATOR . '*.' . $this->filetype;
-            $targetDir = $target . DIRECTORY_SEPARATOR .'*.' . $this->filetype;
 
             foreach (glob($search) as $file) {
-                $this->structure[$file] = $targetDir;
+                $this->structure[$file] = $target . DIRECTORY_SEPARATOR . basename($file);
             }
 
             return;
