@@ -11,10 +11,10 @@ use RPWebDevelopment\LaravelTranslate\Services\Files as FilesAlias;
  * @See FilesAlias
  * @method static parse(string $source = 'en')
  */
-class Files extends Facade
+class FileProcessor extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return 'files';
+        return 'file-processor';
     }
 }

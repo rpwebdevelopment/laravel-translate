@@ -6,7 +6,7 @@ namespace RPWebDevelopment\LaravelTranslate\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
-use RPWebDevelopment\LaravelTranslate\Facades\Files;
+use RPWebDevelopment\LaravelTranslate\Facades\FileProcessor;
 use RPWebDevelopment\LaravelTranslate\Facades\Reader;
 use RPWebDevelopment\LaravelTranslate\Facades\Translate;
 
@@ -24,8 +24,9 @@ class LaravelTranslateCommand extends Command
         $source = $this->option('source') ?? 'en';
 
         try {
-            $files = Files::parse($source)->getStructure();
+            $files = FileProcessor::parse($source)->getStructure();
             $reader = Reader::read($files);
+            dd($reader, $files);
 
         } catch (Exception $e) {
             $this->error($e->getMessage());

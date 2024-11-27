@@ -29,7 +29,7 @@ class LaravelTranslateServiceProvider extends PackageServiceProvider
         );
 
         $this->app->bind(
-            'files',
+            'file-processor',
             fn () => new Files($reader, $dir)
         );
 
