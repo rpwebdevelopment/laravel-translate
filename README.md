@@ -64,7 +64,7 @@ and update the provider to `deepl`. You will then need to add your DeepL API aut
 ## Usage
 
 This package is designed to function with as much flexibility as possible, as such it is designed
-to work for multiple configurations with minimal configurations, whether you have a single file or 
+to work for multiple configurations with minimal setup, whether you have a single file or 
 directory per language, or if you are using PHP lang files or JSON lang files.
 
 ```php
