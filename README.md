@@ -1,4 +1,4 @@
-# Package for generating translated lang files
+# Laravel Translate
 
 ![Packagist Version](https://img.shields.io/packagist/v/rpwebdevelopment/laravel-translate)
 ![Packagist Downloads](https://img.shields.io/packagist/dt/rpwebdevelopment/laravel-translate)
