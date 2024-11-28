@@ -68,8 +68,19 @@ to work for multiple configurations with minimal configurations, whether you hav
 directory per language, or if you are using PHP lang files or JSON lang files.
 
 ```php
-php artisan laravel-translate {target} {--source=?} {--file=?}
+php artisan laravel-translate {target} {--source=?} {--file=?} {--missing-only}
 ```
+
+### Options:
+
+| Command          | Required | Description                                           |
+|------------------|----------|-------------------------------------------------------|
+| `target`         | required | Set locale/language to be translated into.            |
+| `--source=`      | optional | Set locale/language source being translated from.     |
+| `--file=`        | optional | Set specific filename being translated from & into.   |
+| `--missing-only` | optional | Flag only missing values need to be translated/added. |
+
+
 
 ## Example Usages
 
@@ -158,6 +169,10 @@ guaranteed, as such it is recommended to verify your files after production.
 ## Credits
 
 - [Richard Porter](https://github.com/rpwebdevelopment)
+
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
 ## License
 
