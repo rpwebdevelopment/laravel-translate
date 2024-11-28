@@ -17,7 +17,8 @@ class LaravelTranslateCommand extends Command
     public $signature = 'laravel-translate
         { target : Target language to be translated into }
         { --source= : source language to derive translations from }
-        { --file= : specific file to generate translations for }';
+        { --file= : specific file to generate translations for }
+        { --missing-only : specify if only missing translations required }';
 
     public $description = 'Processes and stores translations from source file';
 
@@ -27,6 +28,7 @@ class LaravelTranslateCommand extends Command
         $target = $this->argument('target');
         $source = $this->option('source') ?? config('translate.default_source');
         $file = $this->option('file');
+        $missingOnly  = $this->option('missing-only');
 
         try {
             ProgressBar::setFormatDefinition('custom', ' %message% [%bar%] %current%/%max% ');
@@ -34,7 +36,7 @@ class LaravelTranslateCommand extends Command
             $progress->setFormat('custom');
 
             $files = FileProcessor::parse($source, $target, $file)->getStructure();
-            $reader = Reader::read($files);
+            $reader = Reader::read($files, $missingOnly);
 
             $translations = Translate::reader($reader, $target, $source, $progress);
             Writer::write($translations, $this);

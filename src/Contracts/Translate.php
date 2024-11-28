@@ -8,8 +8,11 @@ use Symfony\Component\Console\Helper\ProgressBar;
 
 abstract class Translate
 {
+    protected array $files = [];
     protected array $targets = [];
+    protected array $existing = [];
     public ProgressBar $progressBar;
+    protected array $existingValues = [];
     protected string $sourceLanguage = '';
     protected string $targetLanguage = '';
 
@@ -25,19 +28,41 @@ abstract class Translate
         string $sourceLang,
         ProgressBar $progress
     ): array {
+        $this->files = $reader->getFiles();
         $this->targets = $reader->getTargets();
+        $this->existing = $reader->getExisting();
         $this->progressBar = $progress;
         $this->sourceLanguage = $sourceLang;
         $this->targetLanguage = $targetLang;
 
+        (empty($this->existing))
+            ? $this->defaultProcessReader()
+            : $this->missingOnlyProcessReader();
+
+        return $this->targets;
+    }
+
+    private function defaultProcessReader(): void
+    {
         $this->progressBar->setMessage('Translating values');
         $this->progressBar->start(count($this->targets, 1));
 
         array_walk_recursive($this->targets, [$this, 'processArray']);
 
         $this->progressBar->finish();
+    }
 
-        return $this->targets;
+    private function missingOnlyProcessReader(): void
+    {
+        $this->progressBar->setMessage('Translating batch');
+        $this->progressBar->start(count($this->files, 1));
+
+        foreach ($this->files as $targetFile) {
+            $this->processMissing($this->targets[$targetFile], $this->existing[$targetFile]);
+            $this->progressBar->advance();
+        }
+
+        $this->progressBar->finish();
     }
 
     private function processArray(&$value): void
@@ -46,6 +71,29 @@ abstract class Translate
         $value = $this->translate($value, $this->targetLanguage, $this->sourceLanguage);
         $value = $this->restoreAttributes($value);
         $this->progressBar->advance();
+    }
+
+    private function processMissing(&$target, $source): void
+    {
+        foreach ($target as $key => $value) {
+            if (is_array($value)) {
+                $this->processMissing($target[$key], $source[$key]);
+
+                continue;
+            }
+
+            if (!empty($source[$key])) {
+                $target[$key] = $source[$key];
+
+                continue;
+            }
+
+            if (!empty($target[$key])) {
+                $value = $this->cleanAttributes($target[$key]);
+                $value = $this->translate($value, $this->targetLanguage, $this->sourceLanguage);
+                $target[$key] = $this->restoreAttributes($value);
+            }
+        }
     }
 
     private function cleanAttributes(string $value): string

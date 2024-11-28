@@ -9,7 +9,7 @@ use RPWebDevelopment\LaravelTranslate\Contracts\Reader as ReaderContract;
 
 /**
  * @See ReaderContract
- * @method ReaderContract read(array $files)
+ * @method ReaderContract read(array $files, bool $missingOnly = false)
  * @method array getTargets()
  */
 class Reader extends Facade
