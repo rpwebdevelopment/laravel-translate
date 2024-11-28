@@ -67,9 +67,7 @@ abstract class Translate
 
     private function processArray(&$value): void
     {
-        $value = $this->cleanAttributes($value);
-        $value = $this->translate($value, $this->targetLanguage, $this->sourceLanguage);
-        $value = $this->restoreAttributes($value);
+        $value = $this->translateString($value);
         $this->progressBar->advance();
     }
 
@@ -77,23 +75,35 @@ abstract class Translate
     {
         foreach ($target as $key => $value) {
             if (is_array($value)) {
-                $this->processMissing($target[$key], $source[$key]);
+                $source[$key] = $source[$key] ?? [];
+                $this->processMissing($target[$key], $source[$key] ?? []);
 
                 continue;
             }
 
-            if (!empty($source[$key])) {
+            if (isset($source[$key]) && !empty($source[$key])) {
                 $target[$key] = $source[$key];
 
                 continue;
             }
 
-            if (!empty($target[$key])) {
-                $value = $this->cleanAttributes($target[$key]);
-                $value = $this->translate($value, $this->targetLanguage, $this->sourceLanguage);
-                $target[$key] = $this->restoreAttributes($value);
+            if (
+                (isset($source[$key]) && !empty($target[$key]))
+                || (isset($target[$key]) && !isset($source[$key]))
+            ) {
+                $target[$key] = $this->translateString($target[$key]);
+
+                continue;
             }
         }
+    }
+
+    private function translateString(string $string): string
+    {
+        $value = $this->cleanAttributes($string);
+        $value = $this->translate($value, $this->targetLanguage, $this->sourceLanguage);
+
+        return $this->restoreAttributes($value);
     }
 
     private function cleanAttributes(string $value): string

@@ -12,3 +12,15 @@ Added ability to use `--missing-only` flag.
 ### Changed
 
 ### Fixed
+
+## [1.1.1] - 2024-11-28
+
+Bugfix deployed for missing-only error when target array value missing
+
+### Added
+
+### Changed
+
+
+### Fixed
+- [[HOTFIX-MISSING-ONLY-MISSING-ARRAY]](https://github.com/rpwebdevelopment/laravel-translate/tree/hotfix-missing-only-missing-array)
