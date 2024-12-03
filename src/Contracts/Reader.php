@@ -13,6 +13,8 @@ abstract class Reader
     public function read(array $files, bool $missingOnly = false): Reader
     {
         $this->files = $files;
+        $this->targets = [];
+        $this->existing = [];
 
         foreach ($this->files as $file => $target) {
             $this->targets[$target] = $this->readFile($file);
