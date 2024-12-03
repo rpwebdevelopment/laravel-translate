@@ -2,6 +2,17 @@
 
 All notable changes to `laravel-translate` will be documented in this file.
 
+## [1.2.1] - 2024-12-03
+
+Bugfix deployed for missing-only error when target lang file missing
+
+### Added
+
+### Changed
+
+### Fixed
+- [[HOTFIX-MISSING-ONLY-MISSING-TARGET]](https://github.com/rpwebdevelopment/laravel-translate/tree/hotfix-missing-only-missing-target)
+
 ## [1.2.0] - 2024-12-03
 
 Added new bulk translate command
