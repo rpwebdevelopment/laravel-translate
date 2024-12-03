@@ -2,6 +2,17 @@
 
 All notable changes to `laravel-translate` will be documented in this file.
 
+## [1.2.2] - 2024-12-03
+
+Bugfix deployed to ensure reader resets between language runs on bulk command
+
+### Added
+
+### Changed
+
+### Fixed
+- [[HOTFIX-MULTI-TARGET-RESET]](https://github.com/rpwebdevelopment/laravel-translate/tree/hotfix-multi-target-reset)
+
 ## [1.2.1] - 2024-12-03
 
 Bugfix deployed for missing-only error when target lang file missing
