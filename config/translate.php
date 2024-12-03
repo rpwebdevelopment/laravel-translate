@@ -36,6 +36,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Language Targets
+    |--------------------------------------------------------------------------
+    |
+    | This option sets an array of target locales for bulk updating into
+    | multiple languages through a single request.
+    |
+    | Example: ['de_DE', 'fr_FR']
+    |
+    */
+    'target_locales' => [],
+
+    /*
+    |--------------------------------------------------------------------------
     | Root Language Directory
     |--------------------------------------------------------------------------
     |

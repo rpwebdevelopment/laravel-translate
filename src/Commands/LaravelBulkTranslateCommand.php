@@ -6,10 +6,9 @@ namespace RPWebDevelopment\LaravelTranslate\Commands;
 
 use Exception;
 
-class LaravelTranslateCommand extends TranslateCommand
+class LaravelBulkTranslateCommand extends TranslateCommand
 {
-    public $signature = 'laravel-translate
-        { target : Target language to be translated into }
+    public $signature = 'laravel-translate:bulk
         { --source= : source language to derive translations from }
         { --file= : specific file to generate translations for }
         { --missing-only : specify if only missing translations required }';
@@ -20,10 +19,12 @@ class LaravelTranslateCommand extends TranslateCommand
     {
         $this->setOptions();
         $this->info('Loading source...');
-        $target = $this->argument('target');
+        $targets = config('translate.target_locales', []);
 
         try {
-            $this->processForTargetLanguage($target);
+            foreach ($targets as $target) {
+                $this->processForTargetLanguage($target);
+            }
         } catch (Exception $e) {
             $this->error($e->getMessage());
 

@@ -44,7 +44,7 @@ abstract class Translate
 
     private function defaultProcessReader(): void
     {
-        $this->progressBar->setMessage('Translating values');
+        $this->progressBar->setMessage("[{$this->targetLanguage}] Translating values");
         $this->progressBar->start(count($this->targets, 1));
 
         array_walk_recursive($this->targets, [$this, 'processArray']);
@@ -54,7 +54,7 @@ abstract class Translate
 
     private function missingOnlyProcessReader(): void
     {
-        $this->progressBar->setMessage('Translating batch');
+        $this->progressBar->setMessage("[{$this->targetLanguage}] Translating values");
         $this->progressBar->start(count($this->files, 1));
 
         foreach ($this->files as $targetFile) {

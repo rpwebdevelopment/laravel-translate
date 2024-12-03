@@ -2,12 +2,12 @@
 
 All notable changes to `laravel-translate` will be documented in this file.
 
-## [1.1.0] - 2024-11-28
+## [1.2.0] - 2024-12-03
 
-Added ability to use `--missing-only` flag.
+Added new bulk translate command
 
 ### Added
-- [[FEATURE-MISSING-ONLY]](https://github.com/rpwebdevelopment/laravel-translate/tree/feature-missing-only)
+- [[FEATURE-MULTI-TARGET]](https://github.com/rpwebdevelopment/laravel-translate/tree/feature-multi-target)
 
 ### Changed
 
@@ -21,6 +21,16 @@ Bugfix deployed for missing-only error when target array value missing
 
 ### Changed
 
-
 ### Fixed
 - [[HOTFIX-MISSING-ONLY-MISSING-ARRAY]](https://github.com/rpwebdevelopment/laravel-translate/tree/hotfix-missing-only-missing-array)
+
+## [1.1.0] - 2024-11-28
+
+Added ability to use `--missing-only` flag.
+
+### Added
+- [[FEATURE-MISSING-ONLY]](https://github.com/rpwebdevelopment/laravel-translate/tree/feature-missing-only)
+
+### Changed
+
+### Fixed

@@ -34,6 +34,7 @@ This is the contents of the published config file:
 return [
     'reader' => 'php',
     'default_source' => 'en_GB',
+    'target_locales' => [],
     'lang_directory' => base_path('resources/lang'),
     'provider' => 'google',
     'providers' => [
@@ -57,7 +58,7 @@ return [
 ```
 ## DeepL Configuration
 
-In order to make use of the DeepL API wou will need to publish the config file as detailed above
+In order to make use of the DeepL API you will need to publish the config file as detailed above
 and update the provider to `deepl`. You will then need to add your DeepL API auth token to your
 `.env` file under the env variable `DEEPL_AUTH_TOKEN`.
 
@@ -80,7 +81,23 @@ php artisan laravel-translate {target} {--source=?} {--file=?} {--missing-only}
 | `--file=`        | optional | Set specific filename being translated from & into.   |
 | `--missing-only` | optional | Flag only missing values need to be translated/added. |
 
+### Bulk Processing
 
+Rather than processing each target language manually you can add all your target locales to the 
+`target_locales` option in the translations configuration file, this will enable the usage of the bulk
+translate command:
+
+```php
+php artisan laravel-translate:bulk {--source=?} {--file=?} {--missing-only}
+```
+
+### Options:
+
+| Command          | Required | Description                                           |
+|------------------|----------|-------------------------------------------------------|
+| `--source=`      | optional | Set locale/language source being translated from.     |
+| `--file=`        | optional | Set specific filename being translated from & into.   |
+| `--missing-only` | optional | Flag only missing values need to be translated/added. |
 
 ## Example Usages
 
