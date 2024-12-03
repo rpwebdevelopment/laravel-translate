@@ -17,8 +17,8 @@ abstract class Reader
         foreach ($this->files as $file => $target) {
             $this->targets[$target] = $this->readFile($file);
 
-            if ($missingOnly && is_file($target)) {
-                $this->existing[$target] = $this->readFile($target);
+            if ($missingOnly) {
+                $this->existing[$target] = (is_file($target)) ? $this->readFile($target) : [];
             }
         }
 
