@@ -12,10 +12,9 @@ use RPWebDevelopment\LaravelTranslate\Facades\Translate;
 use RPWebDevelopment\LaravelTranslate\Facades\Writer;
 use Symfony\Component\Console\Helper\ProgressBar;
 
-class LaravelTranslateCommand extends Command
+class LaravelBulkTranslateCommand extends Command
 {
-    public $signature = 'laravel-translate
-        { target : Target language to be translated into }
+    public $signature = 'laravel-translate:bulk
         { --source= : source language to derive translations from }
         { --file= : specific file to generate translations for }
         { --missing-only : specify if only missing translations required }';
@@ -25,21 +24,23 @@ class LaravelTranslateCommand extends Command
     public function handle(): int
     {
         $this->info('Loading source...');
-        $target = $this->argument('target');
+        $targets = config('translate.target_locales', []);
         $source = $this->option('source') ?? config('translate.default_source');
         $file = $this->option('file');
         $missingOnly  = $this->option('missing-only');
+        ProgressBar::setFormatDefinition('custom', ' %message% [%bar%] %current%/%max% ');
 
         try {
-            ProgressBar::setFormatDefinition('custom', ' %message% [%bar%] %current%/%max% ');
-            $progress = $this->output->createProgressBar();
-            $progress->setFormat('custom');
+            foreach ($targets as $target) {
+                $progress = $this->output->createProgressBar();
+                $progress->setFormat('custom');
 
-            $files = FileProcessor::parse($source, $target, $file)->getStructure();
-            $reader = Reader::read($files, $missingOnly);
+                $files = FileProcessor::parse($source, $target, $file)->getStructure();
+                $reader = Reader::read($files, $missingOnly);
 
-            $translations = Translate::reader($reader, $target, $source, $progress);
-            Writer::write($translations, $this);
+                $translations = Translate::reader($reader, $target, $source, $progress);
+                Writer::write($translations, $this);
+            }
         } catch (Exception $e) {
             $this->error($e->getMessage());
 
