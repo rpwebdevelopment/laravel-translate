@@ -2,6 +2,17 @@
 
 All notable changes to `laravel-translate` will be documented in this file.
 
+## [1.3.0] - 2024-12-04
+
+Added missing translations command
+
+### Added
+- [[FEATURE-MISSING-TRANSLATIONS]](https://github.com/rpwebdevelopment/laravel-translate/tree/feature-missing-translations)
+
+### Changed
+
+### Fixed
+
 ## [1.2.2] - 2024-12-03
 
 Bugfix deployed to ensure reader resets between language runs on bulk command

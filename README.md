@@ -99,6 +99,36 @@ php artisan laravel-translate:bulk {--source=?} {--file=?} {--missing-only}
 | `--file=`        | optional | Set specific filename being translated from & into.   |
 | `--missing-only` | optional | Flag only missing values need to be translated/added. |
 
+### Key Validation
+
+If you simply wish to ascertain if translations are missing from your project you can implement the 
+missing command:
+
+```php
+php artisan laravel-translate:bulk {--verbose}
+```
+
+### Options:
+
+| Command     | Required | Description                                                    |
+|-------------|----------|----------------------------------------------------------------|
+| `--verbose` | optional | Flag to indicate if full details of missing keys are required. |
+
+This command can be used in conjunction with git-hooks in order to prevent changes being deployed 
+to your repository with missing translations, this can be done by adding the following bash script 
+to your `.git/hooks/pre-commit`:
+
+```bash
+#! /bin/bash
+
+missing="$( php artisan laravel-translate:missing )"
+
+if [ "$missing" = "translations missing" ];then
+  echo "Translations Missing";
+  exit 0
+fi
+```
+
 ## Example Usages
 
 ### Directory Structure:

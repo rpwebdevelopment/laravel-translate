@@ -87,13 +87,8 @@ abstract class Translate
                 continue;
             }
 
-            if (
-                (isset($source[$key]) && !empty($target[$key]))
-                || (isset($target[$key]) && !isset($source[$key]))
-            ) {
+            if (isset($target[$key]) && (!isset($source[$key]) || empty($source[$key]))) {
                 $target[$key] = $this->translateString($target[$key]);
-
-                continue;
             }
         }
     }

@@ -13,7 +13,7 @@ class LaravelBulkTranslateCommand extends TranslateCommand
         { --file= : specific file to generate translations for }
         { --missing-only : specify if only missing translations required }';
 
-    public $description = 'Processes and stores translations from source file';
+    public $description = 'Processes and stores translations from source file for all known targets';
 
     public function handle(): int
     {

@@ -2,6 +2,7 @@
 
 namespace RPWebDevelopment\LaravelTranslate;
 
+use RPWebDevelopment\LaravelTranslate\Commands\HasMissingTranslationsCommand;
 use RPWebDevelopment\LaravelTranslate\Commands\LaravelBulkTranslateCommand;
 use RPWebDevelopment\LaravelTranslate\Services\Files;
 use Spatie\LaravelPackageTools\Package;
@@ -50,7 +51,8 @@ class LaravelTranslateServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasCommands([
                 LaravelTranslateCommand::class,
-                LaravelBulkTranslateCommand::class
+                LaravelBulkTranslateCommand::class,
+                HasMissingTranslationsCommand::class,
             ]);
     }
 }
