@@ -11,6 +11,7 @@ use RPWebDevelopment\LaravelTranslate\Contracts\Reader as ReaderContract;
  * @See ReaderContract
  * @method ReaderContract read(array $files, bool $missingOnly = false)
  * @method array getTargets()
+ * @method array hasMissing(string $target)
  */
 class Reader extends Facade
 {
