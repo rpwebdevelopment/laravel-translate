@@ -36,9 +36,9 @@ class HasMissingTranslationsCommand extends TranslateCommand
         }
 
         if (count($missing)) {
-            if ($verbose) {
-                $this->table(['Locale', 'File', 'Translation Key'], $missing);
-            }
+            ($verbose)
+                ? $this->table(['Locale', 'File', 'Translation Key'], $missing)
+                : $this->comment("translations missing");
 
             return self::FAILURE;
         }
