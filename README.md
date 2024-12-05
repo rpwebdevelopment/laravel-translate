@@ -44,6 +44,8 @@ return [
         'deepl' => [
             'package' => DeeplTranslate::class,
             'token' => env('DEEPL_AUTH_TOKEN', null),
+            'model_type' => 'prefer_quality_optimized',
+            'formality' => 'default',
         ],
     ],
     'readers' => [
