@@ -12,6 +12,8 @@ use RPWebDevelopment\LaravelTranslate\Exceptions\LanguageNotSupportedException;
 class DeeplTranslate extends Translate
 {
     protected Translator $translator;
+    protected string $formality = 'default';
+    protected string $model = 'prefer_quality_optimized';
 
     protected const SOURCE_LANGUAGE_CODES = [
         'ar_AA' => 'ar',
@@ -100,6 +102,8 @@ class DeeplTranslate extends Translate
     public function __construct()
     {
         $this->translator = new Translator(config('translate.providers.deepl.token'));
+        $this->model = config('translate.providers.deepl.model_type', 'prefer_quality_optimized');
+        $this->formality = config('translate.providers.deepl.formality', 'default');
     }
 
     /**
@@ -111,10 +115,17 @@ class DeeplTranslate extends Translate
         string $targetLang,
         string $sourceLang = 'en_GB'
     ): ?string {
-        $target = $this->formatTargetLanguageString($targetLang);
-        $source = $this->formatSourceLanguageString($sourceLang);
-
-        return $this->translator->translateText($string, $source, $target)->text;
+        return $this->translator
+            ->translateText(
+                $string,
+                $this->formatSourceLanguageString($sourceLang),
+                $this->formatTargetLanguageString($targetLang),
+                [
+                    'model_type' => $this->model,
+                    'formality' => $this->formality,
+                ]
+            )
+            ->text;
     }
 
     /** @throws LanguageNotSupportedException */

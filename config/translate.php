@@ -86,6 +86,29 @@ return [
         'deepl' => [
             'package' => DeeplTranslate::class,
             'token' => env('DEEPL_AUTH_TOKEN', null),
+
+            /*
+            |--------------------------------------------------------------------------
+            | DeepL Model Type
+            |--------------------------------------------------------------------------
+            |
+            | @see https://developers.deepl.com/docs/api-reference/translate
+            |
+            | Supported: "quality_optimized", "prefer_quality_optimized",
+            | "latency_optimized"
+            */
+            'model_type' => 'prefer_quality_optimized',
+
+            /*
+            |--------------------------------------------------------------------------
+            | DeepL Formality
+            |--------------------------------------------------------------------------
+            |
+            | @see https://developers.deepl.com/docs/api-reference/translate
+            |
+            | Supported: "less", "more", "default", "prefer_less", "prefer_more"
+            */
+            'formality' => 'default',
         ],
     ],
     'readers' => [

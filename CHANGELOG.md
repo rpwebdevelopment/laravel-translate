@@ -2,6 +2,17 @@
 
 All notable changes to `laravel-translate` will be documented in this file.
 
+## [1.3.1] - 2024-12-05
+
+Added additional DeepL configuration options for formality and translation data model
+
+### Added
+- [[FEATURE-ADDITIONAL-DEEPL-CONFIG]](https://github.com/rpwebdevelopment/laravel-translate/tree/feature-additional-deepl-config)
+
+### Changed
+
+### Fixed
+
 ## [1.3.0] - 2024-12-04
 
 Added missing translations command
