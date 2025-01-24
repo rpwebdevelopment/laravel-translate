@@ -2,6 +2,7 @@
 
 use RPWebDevelopment\LaravelTranslate\Services\Reader\JsonReader;
 use RPWebDevelopment\LaravelTranslate\Services\Reader\PhpReader;
+use RPWebDevelopment\LaravelTranslate\Services\Translate\AwsTranslate;
 use RPWebDevelopment\LaravelTranslate\Services\Translate\DeeplTranslate;
 use RPWebDevelopment\LaravelTranslate\Services\Translate\GoogleTranslate;
 use RPWebDevelopment\LaravelTranslate\Services\Writer\JsonWriter;
@@ -65,7 +66,7 @@ return [
     | This option indicates Translation service to be used for generating
     | translated strings.
     |
-    | Supported: "google", "deepl"
+    | Supported: "google", "deepl", "aws"
     |
     */
     'provider' => 'google',
@@ -109,6 +110,27 @@ return [
             | Supported: "less", "more", "default", "prefer_less", "prefer_more"
             */
             'formality' => 'default',
+        ],
+        'aws' => [
+            'package' => AwsTranslate::class,
+            'credentials' => [
+                'key' => env('AWS_ACCESS_KEY_ID', null),
+                'secret' => env('AWS_SECRET_ACCESS_KEY', null),
+            ],
+            'settings' => [
+                /*
+                |--------------------------------------------------------------------------
+                | AWS Formality
+                |--------------------------------------------------------------------------
+                |
+                | @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-translate-2017-07-01.html#shape-translationsettings
+                |
+                | Supported: "FORMAL", "INFORMAL"
+                */
+                "Formality" => "FORMAL"
+            ],
+            "region" => env('AWS_DEFAULT_REGION', "us-east-1"),
+            "version" => "latest",
         ],
     ],
     'readers' => [

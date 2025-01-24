@@ -2,6 +2,17 @@
 
 All notable changes to `laravel-translate` will be documented in this file.
 
+## [2.0.0] - 2025-01-24
+
+Added support for AWS Translate API
+
+## Added
+-[[FEATURE-AWS-TRANSLATE]](https://github.com/rpwebdevelopment/laravel-translate/tree/feature-aws-translate)
+
+### Changed
+
+### Fixed
+
 ## [1.3.1] - 2024-12-05
 
 Added additional DeepL configuration options for formality and translation data model
