@@ -2,6 +2,17 @@
 
 All notable changes to `laravel-translate` will be documented in this file.
 
+## [2.0.2] - 2025-01-24
+
+Added improvements to tag cleanup post translation
+
+### Added
+
+### Changed
+-[[HOTFIX-STRIP-DEAD-TAGS]](https://github.com/rpwebdevelopment/laravel-translate/tree/hotfix-strip-dead-tags)
+
+### Fixed
+
 ## [2.0.1] - 2025-01-24
 
 Changed variable handling to improve reliability
