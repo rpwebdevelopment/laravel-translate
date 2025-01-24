@@ -6,7 +6,8 @@
 
 
 Laravel Translate is a tool intended to automatically generate translated language files. Currently, the package
-leverages either [DeepL API](https://github.com/DeepLcom/deepl-php) or the amazing 
+leverages either [DeepL API](https://github.com/DeepLcom/deepl-php), 
+[Amazon Translate](https://aws.amazon.com/translate/) or the amazing 
 [Google Translate](https://github.com/Stichoza/google-translate-php) package 
 from [Stichoza](https://github.com/Stichoza) which allows for zero configuration usage.
 
@@ -47,6 +48,18 @@ return [
             'model_type' => 'prefer_quality_optimized',
             'formality' => 'default',
         ],
+        'aws' => [
+            'package' => AwsTranslate::class,
+            'credentials' => [
+                'key' => env('AWS_ACCESS_KEY_ID', null),
+                'secret' => env('AWS_SECRET_ACCESS_KEY', null),
+            ],
+            'settings' => [
+                "Formality" => "FORMAL"
+            ],
+            "region" => env('AWS_DEFAULT_REGION', "us-east-1"),
+            "version" => "latest",
+        ],
     ],
     'readers' => [
         'php' => PhpReader::class,
@@ -63,6 +76,16 @@ return [
 In order to make use of the DeepL API you will need to publish the config file as detailed above
 and update the provider to `deepl`. You will then need to add your DeepL API auth token to your
 `.env` file under the env variable `DEEPL_AUTH_TOKEN`.
+
+## Amazon Configuration
+
+In order to make use of the AWS Translate API you will need to publish the config file as detailed above
+and update the provider to `aws`. You will then need to ensure that you `.env` file contains the required AWS 
+variables: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` & `AWS_DEFAULT_REGION`.
+
+#### Note:
+
+You will need to ensure that the AWS IAM role has the permission policy `TranslateFullAccess` .
 
 ## Usage
 
