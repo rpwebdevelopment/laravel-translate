@@ -63,7 +63,7 @@ class DeeplTranslate extends Translate
         'da_DK' => 'da',
         'de_DE' => 'de',
         'el_GR' => 'el',
-        'en_AU' => 'en-AU',
+        'en_AU' => 'en',
         'en_BE' => 'en',
         'en_GB' => 'EN-GB',
         'en_US' => 'en-US',
