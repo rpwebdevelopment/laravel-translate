@@ -2,11 +2,22 @@
 
 All notable changes to `laravel-translate` will be documented in this file.
 
+## [2.0.1] - 2025-01-24
+
+Changed variable handling to improve reliability
+
+### Added
+
+### Changed
+-[[HOTFIX-IMPROVED-VARIABLE-HANDLING]](https://github.com/rpwebdevelopment/laravel-translate/tree/hotfix-improved-variable-handling)
+
+### Fixed
+
 ## [2.0.0] - 2025-01-24
 
 Added support for AWS Translate API
 
-## Added
+### Added
 -[[FEATURE-AWS-TRANSLATE]](https://github.com/rpwebdevelopment/laravel-translate/tree/feature-aws-translate)
 
 ### Changed
