@@ -119,10 +119,16 @@ abstract class Translate
 
     private function restoreAttributes(string $value): string
     {
-        return preg_replace_callback(
+        $restore = preg_replace_callback(
             $this::REVERSE_FORMAT,
             fn ($matches) => sprintf(':%s', $matches[$this::MATCH_INT]),
             $value
+        );
+
+        return str_replace(
+            ' <template translate=no></template>',
+            ':',
+            $restore
         );
     }
 }
