@@ -16,6 +16,10 @@ abstract class Translate
     protected string $sourceLanguage = '';
     protected string $targetLanguage = '';
 
+    public const REPLACE_FORMAT = '+VAR%sVAR+';
+    public const REVERSE_FORMAT = '/\+VAR(.*?)VAR\+/';
+    public const MATCH_INT = 1;
+
     public abstract function translate(
         string $string,
         string $targetLang,
@@ -105,7 +109,10 @@ abstract class Translate
     {
         return preg_replace_callback(
             '/\:[a-zA-Z0-9_-]*/',
-            fn ($matches) => sprintf('*VAR_%s_VAR*', $matches[0]),
+            fn ($matches) => sprintf(
+                $this::REPLACE_FORMAT,
+                ltrim($matches[0], ':')
+            ),
             $value
         );
     }
@@ -113,8 +120,8 @@ abstract class Translate
     private function restoreAttributes(string $value): string
     {
         return preg_replace_callback(
-            '/\*VAR_(.*?)_VAR\*/',
-            fn ($matches) => $matches[1],
+            $this::REVERSE_FORMAT,
+            fn ($matches) => sprintf(':%s', $matches[$this::MATCH_INT]),
             $value
         );
     }

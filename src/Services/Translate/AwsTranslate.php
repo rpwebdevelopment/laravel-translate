@@ -11,6 +11,13 @@ use RPWebDevelopment\LaravelTranslate\Exceptions\LanguageNotSupportedException;
 
 class AwsTranslate extends Translate
 {
+    protected TranslateClient|AwsClient $translateClient;
+    protected array $translateSettings;
+
+    public const REPLACE_FORMAT = '<template translate=no>%s</template>';
+    public const REVERSE_FORMAT = '/(<template translate=no>)([\w\s]+)(<\/template>)/';
+    public const MATCH_INT = 2;
+
     protected const LANGUAGE_CODES = [
         "af" => "af",
         "sq" => "sq",
@@ -161,9 +168,6 @@ class AwsTranslate extends Translate
         "zh_CN" => "zh",
         "zh_TW" => "zh-TW",
     ];
-
-    protected TranslateClient|AwsClient $translateClient;
-    protected array $translateSettings;
 
     public function __construct()
     {
