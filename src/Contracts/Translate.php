@@ -126,7 +126,7 @@ abstract class Translate
         );
 
         return str_replace(
-            ' <template translate=no></template>',
+            [' <template translate=no></template>', '<template translate=no></template>'],
             ':',
             $restore
         );
