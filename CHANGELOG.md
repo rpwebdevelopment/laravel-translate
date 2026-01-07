@@ -2,6 +2,28 @@
 
 All notable changes to `laravel-translate` will be documented in this file.
 
+## [2.1.30] - 2026-01-07
+
+Removed `illuminate/contracts` from composer.json as not required
+
+### Added
+
+### Changed
+-[[HOTFIX-CORRECTING-COMPOSER-JSON]](https://github.com/rpwebdevelopment/laravel-translate/tree/hotfix-correcting-composer-json)
+
+### Fixed
+
+## [2.0.3] - 2025-04-23
+
+Added improvements to tag cleanup post translation
+
+### Added
+
+### Changed
+-[[HOTFIX-IMPROVE-TAG-STRIPPING]](https://github.com/rpwebdevelopment/laravel-translate/tree/hotfix-improve-tag-stripping)
+
+### Fixed
+
 ## [2.0.2] - 2025-01-24
 
 Added improvements to tag cleanup post translation
