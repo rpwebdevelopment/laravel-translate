@@ -19,9 +19,9 @@ class Files
     }
 
     /** @throws SourceNotFoundException */
-    public function parse(string $sourceLang, string $targetLang, ?string $file = null): self
+    public function parse(string $sourceLang, string $localeKey, ?string $file = null): self
     {
-        $this->setScanStructure($sourceLang, $targetLang, $file);
+        $this->setScanStructure($sourceLang, $localeKey, $file);
 
         return $this;
     }
@@ -32,11 +32,11 @@ class Files
     }
 
     /** @throws SourceNotFoundException */
-    private function setScanStructure(string $sourceLang, string $targetLang, ?string $file): void
+    private function setScanStructure(string $sourceLang, string $localeKey, ?string $file): void
     {
         $sourceLang = $this->cleanString($sourceLang);
         $path = $this->directory . DIRECTORY_SEPARATOR . $sourceLang;
-        $target = $this->directory . DIRECTORY_SEPARATOR . $targetLang;
+        $target = $this->directory . DIRECTORY_SEPARATOR . $localeKey;
         $targetFile = $target . '.' . $this->filetype;
         $pathFile = $path . '.' . $this->filetype;
 
