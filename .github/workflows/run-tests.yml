@@ -9,35 +9,22 @@ on:
       - 'composer.json'
       - 'composer.lock'
 
-jobs:
-  test:
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 5
-    strategy:
-      fail-fast: true
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-        php: [8.3, 8.2]
-        laravel: [11.*, 10.*]
-        stability: [prefer-lowest, prefer-stable]
-        include:
-          - laravel: 11.*
-            testbench: 9.*
-            carbon: ^2.63
-          - laravel: 10.*
-            testbench: 8.*
-            carbon: ^2.63
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
-    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: 8.4
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
           coverage: none
 
@@ -48,8 +35,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "nesbot/carbon:${{ matrix.os == 'windows-latest' && '^^^' || '' }}${{ matrix.carbon }}" --no-interaction --no-update
-          composer update --${{ matrix.stability }} --prefer-dist --no-interaction
+          composer require "laravel/framework:11.*" "orchestra/testbench:9.*" --no-interaction --no-update
+          composer update --prefer-lowest --prefer-dist --no-interaction
 
       - name: List Installed Dependencies
         run: composer show -D

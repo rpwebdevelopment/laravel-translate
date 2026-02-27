@@ -87,6 +87,39 @@ variables: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` & `AWS_DEFAULT_REGION`.
 
 You will need to ensure that the AWS IAM role has the permission policy `TranslateFullAccess` .
 
+## Defining Locales
+
+When configuring target languages it is important to follow the below conventions:
+
+```php
+'target_locales' => [
+    [FILE/DIR PATH] => [
+        'lang' => [LANG CODE],
+        'formality' => [OPTIONAL FORMALITY]
+    ]
+],
+```
+
+#### Example:
+```php
+'target_locales' => [
+    'de_DE_formal' => [
+        'lang' => 'de_DE',
+    ],
+    'de_DE_casual' => [
+        'lang' => 'de_DE',
+        'formality' => 'less_formal',
+    ],
+]
+```
+
+The above would output two different German language translations; one using more formal language
+and one using less formal language
+
+#### Note:
+Formality is currently only available for DeepL and AWS translations. This setting will have no 
+impact when using Google translate.
+
 ## Usage
 
 This package is designed to function with as much flexibility as possible, as such it is designed

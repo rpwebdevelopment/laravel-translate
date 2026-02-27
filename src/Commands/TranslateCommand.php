@@ -17,13 +17,13 @@ class TranslateCommand extends Command
     protected ?string $source = null;
     protected ?string $file = null;
 
-    protected function processForTargetLanguage(string $target): void
+    protected function processForTargetLanguage(array $target, string $key): void
     {
         ProgressBar::setFormatDefinition('custom', ' %message% [%bar%] %current%/%max% ');
         $progress = $this->output->createProgressBar();
         $progress->setFormat('custom');
 
-        $files = FileProcessor::parse($this->source, $target, $this->file)->getStructure();
+        $files = FileProcessor::parse($this->source, $key, $this->file)->getStructure();
         $reader = Reader::read($files, $this->missingOnly);
 
         $translations = Translate::reader($reader, $target, $this->source, $progress);
