@@ -41,9 +41,16 @@ return [
     |--------------------------------------------------------------------------
     |
     | This option sets an array of target locales for bulk updating into
-    | multiple languages through a single request.
+    | multiple languages through a single request. The format required is
+    | array key as the lang filename with target lang and optional formality
+    | values. Note: formality has no effect on the Google provider.
     |
-    | Example: ['de_DE', 'fr_FR']
+    | Formality options are 'more_formal', 'less_formal', default is 'more_formal'
+    |
+    | Example: [
+    |     'de_DE_formal' => ['lang' => 'de_DE'],
+    |     'de_DE_casual' => ['lang' => 'de_DE', 'formality' => less_formal],
+    | ]
     |
     */
     'target_locales' => [],
@@ -99,17 +106,6 @@ return [
             | "latency_optimized"
             */
             'model_type' => 'prefer_quality_optimized',
-
-            /*
-            |--------------------------------------------------------------------------
-            | DeepL Formality
-            |--------------------------------------------------------------------------
-            |
-            | @see https://developers.deepl.com/docs/api-reference/translate
-            |
-            | Supported: "less", "more", "default", "prefer_less", "prefer_more"
-            */
-            'formality' => 'default',
         ],
         'aws' => [
             'package' => AwsTranslate::class,
@@ -117,18 +113,7 @@ return [
                 'key' => env('AWS_ACCESS_KEY_ID', null),
                 'secret' => env('AWS_SECRET_ACCESS_KEY', null),
             ],
-            'settings' => [
-                /*
-                |--------------------------------------------------------------------------
-                | AWS Formality
-                |--------------------------------------------------------------------------
-                |
-                | @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-translate-2017-07-01.html#shape-translationsettings
-                |
-                | Supported: "FORMAL", "INFORMAL"
-                */
-                "Formality" => "FORMAL"
-            ],
+            'settings' => [],
             "region" => env('AWS_DEFAULT_REGION', "us-east-1"),
             "version" => "latest",
         ],
