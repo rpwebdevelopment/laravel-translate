@@ -22,12 +22,12 @@ class HasMissingTranslationsCommand extends TranslateCommand
         $missing = [];
 
         try {
-            foreach ($targets as $target) {
-                $files = FileProcessor::parse($this->source, $target, null)->getStructure();
+            foreach ($targets as $key => $target) {
+                $files = FileProcessor::parse($this->source, $key)->getStructure();
 
                 $missing = array_merge(
                     $missing,
-                    Reader::read($files, true)->hasMissing($target, $verbose)
+                    Reader::read($files, true)->hasMissing($target['lang'], $verbose)
                 );
             }
 

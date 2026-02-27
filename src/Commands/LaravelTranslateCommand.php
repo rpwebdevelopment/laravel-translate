@@ -9,7 +9,7 @@ use Exception;
 class LaravelTranslateCommand extends TranslateCommand
 {
     public $signature = 'laravel-translate
-        { target : Target language to be translated into }
+        { target : "target_locale" to be translated into }
         { --source= : source language to derive translations from }
         { --file= : specific file to generate translations for }
         { --missing-only : specify if only missing translations required }';
@@ -21,9 +21,10 @@ class LaravelTranslateCommand extends TranslateCommand
         $this->setOptions();
         $this->info('Loading source...');
         $target = $this->argument('target');
+        $lang = config("translate.target_locales.{$target}");
 
         try {
-            $this->processForTargetLanguage($target);
+            $this->processForTargetLanguage($lang, $target);
         } catch (Exception $e) {
             $this->error($e->getMessage());
 

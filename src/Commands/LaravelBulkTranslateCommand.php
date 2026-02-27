@@ -22,8 +22,8 @@ class LaravelBulkTranslateCommand extends TranslateCommand
         $targets = config('translate.target_locales', []);
 
         try {
-            foreach ($targets as $target) {
-                $this->processForTargetLanguage($target);
+            foreach ($targets as $key => $target) {
+                $this->processForTargetLanguage($target, $key);
             }
         } catch (Exception $e) {
             $this->error($e->getMessage());
