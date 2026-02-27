@@ -7,6 +7,7 @@ namespace RPWebDevelopment\LaravelTranslate\Services\Translate;
 use Aws\AwsClient;
 use Aws\Translate\TranslateClient;
 use RPWebDevelopment\LaravelTranslate\Contracts\Translate;
+use RPWebDevelopment\LaravelTranslate\Exceptions\InvalidFormalityConfigException;
 use RPWebDevelopment\LaravelTranslate\Exceptions\LanguageNotSupportedException;
 
 class AwsTranslate extends Translate
@@ -183,6 +184,26 @@ class AwsTranslate extends Translate
     }
 
     /**
+     * @throws InvalidFormalityConfigException
+     */
+    protected function setFormality(array $locale): void
+    {
+        if (!isset($locale['formality'])) {
+            $this->formality = "FORMAL";
+
+            return;
+        }
+
+        if (!in_array($locale['formality'], ['less_formal', 'more_formal'])) {
+            throw new InvalidFormalityConfigException();
+        }
+
+        $this->formality = $locale['formality'] === 'more_formal'
+            ? 'FORMAL'
+            : 'INFORMAL';
+    }
+
+    /**
      * @throws LanguageNotSupportedException
      */
     public function translate(string $string = '', string $targetLang, string $sourceLang = 'en_GB'): ?string
@@ -193,7 +214,7 @@ class AwsTranslate extends Translate
 
         return $this->translateClient
             ->translateText([
-                'Settings' => $this->translateSettings,
+                'Settings' => $this->formatSettings(),
                 'SourceLanguageCode' => $this->formatCode($sourceLang),
                 'TargetLanguageCode' => $this->formatCode($targetLang),
                 'Text' => $string,
@@ -215,5 +236,13 @@ class AwsTranslate extends Translate
         }
 
         throw new LanguageNotSupportedException();
+    }
+
+    private function formatSettings(): array
+    {
+        $settings = $this->translateSettings;
+        $settings['Formality'] = $this->formality;
+
+        return $settings;
     }
 }

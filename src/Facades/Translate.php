@@ -12,7 +12,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 /**
  * @See TranslateContract
  * @method ?string translate(string $string, string $targetLang, string $sourceLang = 'en_GB')
- * @method array reader(Reader $reader, string $targetLang, string $sourceLang, ProgressBar $progress)
+ * @method array reader(Reader $reader, array $targetLocale, string $sourceLang, ProgressBar $progress)
  */
 class Translate extends Facade
 {

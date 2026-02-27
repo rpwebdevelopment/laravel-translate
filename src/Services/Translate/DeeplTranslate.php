@@ -7,12 +7,12 @@ namespace RPWebDevelopment\LaravelTranslate\Services\Translate;
 use DeepL\DeepLException;
 use DeepL\Translator;
 use RPWebDevelopment\LaravelTranslate\Contracts\Translate;
+use RPWebDevelopment\LaravelTranslate\Exceptions\InvalidFormalityConfigException;
 use RPWebDevelopment\LaravelTranslate\Exceptions\LanguageNotSupportedException;
 
 class DeeplTranslate extends Translate
 {
     protected Translator $translator;
-    protected string $formality = 'default';
     protected string $model = 'prefer_quality_optimized';
 
     protected const SOURCE_LANGUAGE_CODES = [
@@ -103,7 +103,26 @@ class DeeplTranslate extends Translate
     {
         $this->translator = new Translator(config('translate.providers.deepl.token'));
         $this->model = config('translate.providers.deepl.model_type', 'prefer_quality_optimized');
-        $this->formality = config('translate.providers.deepl.formality', 'default');
+    }
+
+    /**
+     * @throws InvalidFormalityConfigException
+     */
+    protected function setFormality(array $locale): void
+    {
+        if (!isset($locale['formality'])) {
+            $this->formality = "prefer_more";
+
+            return;
+        }
+
+        if (!in_array($locale['formality'], ['less_formal', 'more_formal'])) {
+            throw new InvalidFormalityConfigException();
+        }
+
+        $this->formality = $locale['formality'] === 'more_formal'
+            ? 'prefer_more'
+            : 'prefer_less';
     }
 
     /**

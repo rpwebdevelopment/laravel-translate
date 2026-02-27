@@ -15,6 +15,7 @@ abstract class Translate
     protected array $existingValues = [];
     protected string $sourceLanguage = '';
     protected string $targetLanguage = '';
+    protected string $formality = 'more_formal';
 
     public const REPLACE_FORMAT = '+VAR%sVAR+';
     public const REVERSE_FORMAT = '/\+VAR(.*?)VAR\+/';
@@ -28,7 +29,7 @@ abstract class Translate
 
     public function reader(
         Reader $reader,
-        string $targetLang,
+        array $targetLocale,
         string $sourceLang,
         ProgressBar $progress
     ): array {
@@ -37,7 +38,8 @@ abstract class Translate
         $this->existing = $reader->getExisting();
         $this->progressBar = $progress;
         $this->sourceLanguage = $sourceLang;
-        $this->targetLanguage = $targetLang;
+        $this->targetLanguage = $targetLocale['lang'];
+        $this->setFormality($targetLocale);
 
         (empty($this->existing))
             ? $this->defaultProcessReader()

@@ -15,6 +15,11 @@ class GoogleTranslate extends Translate
         $this->translator = new GoogleTranslateService();
     }
 
+    protected function setFormality(array $locale): void
+    {
+        //
+    }
+
     public function translate(
         string $string,
         string $targetLang,
