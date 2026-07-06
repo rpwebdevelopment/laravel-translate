@@ -6,7 +6,7 @@ namespace RPWebDevelopment\LaravelTranslate\Services\Writer;
 
 use RPWebDevelopment\LaravelTranslate\Contracts\Writer;
 
-class JsonWriter extends Writer
+final class JsonWriter extends Writer
 {
 
     protected function writeToFile(string $filepath, array $translations): void

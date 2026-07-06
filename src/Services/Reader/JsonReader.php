@@ -6,7 +6,7 @@ namespace RPWebDevelopment\LaravelTranslate\Services\Reader;
 
 use RPWebDevelopment\LaravelTranslate\Contracts\Reader;
 
-class JsonReader extends Reader
+final class JsonReader extends Reader
 {
     protected function readFile(string $filepath): array
     {

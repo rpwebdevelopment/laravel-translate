@@ -7,7 +7,7 @@ namespace RPWebDevelopment\LaravelTranslate\Services\Translate;
 use RPWebDevelopment\LaravelTranslate\Contracts\Translate;
 use Stichoza\GoogleTranslate\GoogleTranslate as GoogleTranslateService;
 
-class GoogleTranslate extends Translate
+final class GoogleTranslate extends Translate
 {
     protected GoogleTranslateService $translator;
     public function __construct()
