@@ -9,94 +9,12 @@ use DeepL\Translator;
 use RPWebDevelopment\LaravelTranslate\Contracts\Translate;
 use RPWebDevelopment\LaravelTranslate\Exceptions\InvalidFormalityConfigException;
 use RPWebDevelopment\LaravelTranslate\Exceptions\LanguageNotSupportedException;
+use RPWebDevelopment\LaravelTranslate\LanguageCodes;
 
-class DeeplTranslate extends Translate
+final class DeeplTranslate extends Translate
 {
     protected Translator $translator;
     protected string $model = 'prefer_quality_optimized';
-
-    protected const SOURCE_LANGUAGE_CODES = [
-        'ar_AA' => 'ar',
-        'bg_BG' => 'bg',
-        'cs_CZ' => 'cs',
-        'da_DK' => 'da',
-        'de_DE' => 'de',
-        'el_GR' => 'el',
-        'en_AU' => 'en',
-        'en_BE' => 'en',
-        'en_GB' => 'en',
-        'en_US' => 'en',
-        'en_ZA' => 'en',
-        'es_ES' => 'es',
-        'et_ET' => 'et',
-        'fi_FI' => 'fi',
-        'fr_BE' => 'fr',
-        'fr_CA' => 'fr',
-        'fr_CH' => 'fr',
-        'fr_FR' => 'fr',
-        'hu_HU' => 'hu',
-        'id_ID' => 'id',
-        'it_CH' => 'it',
-        'it_IT' => 'it',
-        'ja_JP' => 'ja',
-        'lt_LT' => 'lt',
-        'lv_LV' => 'lv',
-        'nl_NL' => 'nl',
-        'nl_BE' => 'nl',
-        'pl_PL' => 'pl',
-        'pt_BR' => 'pt',
-        'pt_PT' => 'pt',
-        'ro_RO' => 'ro',
-        'ru_RU' => 'ru',
-        'sk_SK' => 'sk',
-        'sl_SL' => 'sl',
-        'sv_SE' => 'sv',
-        'tr_TR' => 'tr',
-        'uk_UA' => 'uk',
-        'zh_CN' => 'zh',
-    ];
-
-    protected const TARGET_LANGUAGE_CODES = [
-        'ar_AA' => 'ar',
-        'bg_BG' => 'bg',
-        'cs_CZ' => 'cs',
-        'da_DK' => 'da',
-        'de_DE' => 'de',
-        'el_GR' => 'el',
-        'en_AU' => 'en',
-        'en_BE' => 'en',
-        'en_GB' => 'EN-GB',
-        'en_US' => 'en-US',
-        'en_ZA' => 'en',
-        'es_ES' => 'es',
-        'et_ET' => 'et',
-        'fi_FI' => 'fi',
-        'fr_BE' => 'fr',
-        'fr_CA' => 'fr',
-        'fr_CH' => 'fr',
-        'fr_FR' => 'fr',
-        'hu_HU' => 'hu',
-        'id_ID' => 'id',
-        'it_CH' => 'it',
-        'it_IT' => 'it',
-        'ja_JP' => 'ja',
-        'lt_LT' => 'lt',
-        'lv_LV' => 'lv',
-        'nl_NL' => 'nl',
-        'nl_BE' => 'nl',
-        'pl_PL' => 'pl',
-        'pt' => 'pt',
-        'pt_BR' => 'pt-BR',
-        'pt_PT' => 'pt-PT',
-        'ro_RO' => 'ro',
-        'ru_RU' => 'ru',
-        'sk_SK' => 'sk',
-        'sl_SL' => 'sl',
-        'sv_SE' => 'sv',
-        'tr_TR' => 'tr',
-        'uk_UA' => 'uk',
-        'zh_CN' => 'zh',
-    ];
 
     /** @throws DeepLException */
     public function __construct()
@@ -150,13 +68,13 @@ class DeeplTranslate extends Translate
     /** @throws LanguageNotSupportedException */
     private function formatSourceLanguageString(string $languageCode): string
     {
-        return $this->formatLanguageString($languageCode, self::SOURCE_LANGUAGE_CODES);
+        return $this->formatLanguageString($languageCode, LanguageCodes::DEEPL_SOURCE_CODES);
     }
 
     /** @throws LanguageNotSupportedException */
     private function formatTargetLanguageString(string $languageCode): string
     {
-        return $this->formatLanguageString($languageCode, self::TARGET_LANGUAGE_CODES);
+        return $this->formatLanguageString($languageCode, LanguageCodes::DEEPL_TARGET_CODES);
     }
 
     /** @throws LanguageNotSupportedException */

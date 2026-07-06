@@ -6,7 +6,7 @@ namespace RPWebDevelopment\LaravelTranslate\Services\Reader;
 
 use RPWebDevelopment\LaravelTranslate\Contracts\Reader;
 
-class PhpReader extends Reader
+final class PhpReader extends Reader
 {
     protected function readFile(string $filepath): array
     {

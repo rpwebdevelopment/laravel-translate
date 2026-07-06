@@ -7,7 +7,7 @@ namespace RPWebDevelopment\LaravelTranslate\Services\Writer;
 use RPWebDevelopment\LaravelTranslate\Contracts\Writer;
 use Symfony\Component\VarExporter\VarExporter;
 
-class PhpWriter extends Writer
+final class PhpWriter extends Writer
 {
 
     protected function writeToFile(string $filepath, array $translations): void
