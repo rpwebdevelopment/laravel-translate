@@ -2,6 +2,17 @@
 
 All notable changes to `laravel-translate` will be documented in this file.
 
+## [3.1.0] - 2026-11-23
+
+Added PHP 8.5 support and dropped PHP 8.2.
+Switched DeepL integration to `DeepLClient` (requires `deeplcom/deepl-php` ^1.21).
+Fixed deprecated optional-before-required parameter in `AwsTranslate::translate()`.
+Added Laravel 12 / Testbench 10 support and a PHP/Laravel test matrix to CI.
+Added `pint.json` and applied code style fixes.
+
+### Changed
+-[[FEATURE-PHP-8-5-SUPPORT]](https://github.com/rpwebdevelopment/laravel-translate/tree/feature-php-8-5-support)
+
 ## [3.0.0] - 2026-02-27
 
 Breaking change - added functionality for variable language formality

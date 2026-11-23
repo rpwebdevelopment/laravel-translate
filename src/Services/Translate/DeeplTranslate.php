@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace RPWebDevelopment\LaravelTranslate\Services\Translate;
 
+use DeepL\DeepLClient;
 use DeepL\DeepLException;
-use DeepL\Translator;
 use RPWebDevelopment\LaravelTranslate\Contracts\Translate;
 use RPWebDevelopment\LaravelTranslate\Exceptions\InvalidFormalityConfigException;
 use RPWebDevelopment\LaravelTranslate\Exceptions\LanguageNotSupportedException;
@@ -13,13 +13,13 @@ use RPWebDevelopment\LaravelTranslate\LanguageCodes;
 
 final class DeeplTranslate extends Translate
 {
-    protected Translator $translator;
+    protected DeepLClient $client;
     protected string $model = 'prefer_quality_optimized';
 
     /** @throws DeepLException */
     public function __construct()
     {
-        $this->translator = new Translator(config('translate.providers.deepl.token'));
+        $this->client = new DeepLClient(config('translate.providers.deepl.token'));
         $this->model = config('translate.providers.deepl.model_type', 'prefer_quality_optimized');
     }
 
@@ -29,13 +29,13 @@ final class DeeplTranslate extends Translate
     protected function setFormality(array $locale): void
     {
         if (!isset($locale['formality'])) {
-            $this->formality = "prefer_more";
+            $this->formality = 'prefer_more';
 
             return;
         }
 
         if (!in_array($locale['formality'], ['less_formal', 'more_formal'])) {
-            throw new InvalidFormalityConfigException();
+            throw new InvalidFormalityConfigException;
         }
 
         $this->formality = $locale['formality'] === 'more_formal'
@@ -52,7 +52,7 @@ final class DeeplTranslate extends Translate
         string $targetLang,
         string $sourceLang = 'en_GB'
     ): ?string {
-        return $this->translator
+        return $this->client
             ->translateText(
                 $string,
                 $this->formatSourceLanguageString($sourceLang),
@@ -90,6 +90,6 @@ final class DeeplTranslate extends Translate
             return $codes[$languageCode];
         }
 
-        throw new LanguageNotSupportedException();
+        throw new LanguageNotSupportedException;
     }
 }

@@ -34,6 +34,6 @@ class TranslateCommand extends Command
     {
         $this->source = $this->option('source') ?? config('translate.default_source');
         $this->file = $this->option('file');
-        $this->missingOnly  = $this->option('missing-only');
+        $this->missingOnly = $this->option('missing-only');
     }
 }

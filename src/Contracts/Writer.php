@@ -25,7 +25,7 @@ abstract class Writer
             $this->validateFile($filepath);
 
             if (!$stream = fopen($filepath, 'w')) {
-                throw new CannotCreateTargetFileException();
+                throw new CannotCreateTargetFileException;
             }
 
             fclose($stream);
@@ -44,7 +44,7 @@ abstract class Writer
                 ->confirm("Directory `{$directory}` doesn't exist, create?", true);
 
             if (!$continue) {
-                throw new TargetFileNotFoundException();
+                throw new TargetFileNotFoundException;
             }
 
             mkdir($directory, 0755, true);
@@ -59,10 +59,10 @@ abstract class Writer
                 ->confirm("File `{$filepath}` doesn't exist, create?", true);
 
             if (!$continue) {
-                throw new TargetFileNotFoundException();
+                throw new TargetFileNotFoundException;
             }
         }
     }
 
-    protected abstract function writeToFile(string $filepath, array $translations): void;
+    abstract protected function writeToFile(string $filepath, array $translations): void;
 }

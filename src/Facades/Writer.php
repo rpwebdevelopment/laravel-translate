@@ -10,7 +10,8 @@ use RPWebDevelopment\LaravelTranslate\Contracts\Writer as WriterContract;
 
 /**
  * @See WriterContract
- * @method void write(array $translationFiles, Command $command)
+ *
+ * @method static void write(array $translationFiles, Command $command)
  */
 class Writer extends Facade
 {

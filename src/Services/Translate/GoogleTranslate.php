@@ -10,9 +10,10 @@ use Stichoza\GoogleTranslate\GoogleTranslate as GoogleTranslateService;
 final class GoogleTranslate extends Translate
 {
     protected GoogleTranslateService $translator;
+
     public function __construct()
     {
-        $this->translator = new GoogleTranslateService();
+        $this->translator = new GoogleTranslateService;
     }
 
     protected function setFormality(array $locale): void

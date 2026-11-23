@@ -21,7 +21,7 @@ abstract class Translate
     public const REVERSE_FORMAT = '/\+VAR(.*?)VAR\+/';
     public const MATCH_INT = 1;
 
-    public abstract function translate(
+    abstract public function translate(
         string $string,
         string $targetLang,
         string $sourceLang = 'en_GB'
@@ -132,7 +132,7 @@ abstract class Translate
                 ' <template translate=no></template>',
                 '<template translate=no></template>',
                 ' <template translate=no>',
-                '</template> :'
+                '</template> :',
             ],
             ':',
             $restore

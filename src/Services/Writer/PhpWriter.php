@@ -9,7 +9,6 @@ use Symfony\Component\VarExporter\VarExporter;
 
 final class PhpWriter extends Writer
 {
-
     protected function writeToFile(string $filepath, array $translations): void
     {
         $content = "<?php\n\nreturn " . VarExporter::export($translations) . ";\n";
