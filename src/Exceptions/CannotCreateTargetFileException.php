@@ -8,6 +8,6 @@ class CannotCreateTargetFileException extends Exception
 {
     public function __construct()
     {
-        parent::__construct("Unable to create target file");
+        parent::__construct('Unable to create target file');
     }
 }

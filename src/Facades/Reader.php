@@ -9,9 +9,10 @@ use RPWebDevelopment\LaravelTranslate\Contracts\Reader as ReaderContract;
 
 /**
  * @See ReaderContract
- * @method ReaderContract read(array $files, bool $missingOnly = false)
- * @method array getTargets()
- * @method array hasMissing(string $target)
+ *
+ * @method static ReaderContract read(array $files, bool $missingOnly = false)
+ * @method static array getTargets()
+ * @method static array hasMissing(string $target)
  */
 class Reader extends Facade
 {

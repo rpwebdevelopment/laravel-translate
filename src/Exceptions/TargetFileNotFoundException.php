@@ -10,6 +10,6 @@ class TargetFileNotFoundException extends Exception
 {
     public function __construct()
     {
-        parent::__construct("Target file not found - aborting");
+        parent::__construct('Target file not found - aborting');
     }
 }

@@ -8,7 +8,6 @@ use RPWebDevelopment\LaravelTranslate\Contracts\Writer;
 
 final class JsonWriter extends Writer
 {
-
     protected function writeToFile(string $filepath, array $translations): void
     {
         $content = json_encode(

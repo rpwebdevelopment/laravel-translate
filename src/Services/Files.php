@@ -46,7 +46,7 @@ class Files
             $targetFile = $target . DIRECTORY_SEPARATOR . $filename;
 
             if (!is_file($path)) {
-                throw new SourceNotFoundException();
+                throw new SourceNotFoundException;
             }
 
             $this->structure = [$path => $targetFile];
@@ -76,7 +76,7 @@ class Files
             return;
         }
 
-        throw new SourceNotFoundException();
+        throw new SourceNotFoundException;
     }
 
     private function cleanString(string $string): string
@@ -86,6 +86,6 @@ class Files
 
     private function hasFileExtension(string $path): bool
     {
-        return str_ends_with($path,  '.' . $this->filetype);
+        return str_ends_with($path, '.' . $this->filetype);
     }
 }

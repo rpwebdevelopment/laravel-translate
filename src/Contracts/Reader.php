@@ -90,5 +90,5 @@ abstract class Reader
         return $returns;
     }
 
-    protected abstract function readFile(string $filepath): array;
+    abstract protected function readFile(string $filepath): array;
 }

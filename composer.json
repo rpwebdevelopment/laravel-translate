@@ -16,17 +16,17 @@
         }
     ],
     "require": {
-        "php": "^8.2|^8.3",
+        "php": "^8.3",
         "aws/aws-sdk-php-laravel": "^3.9",
-        "deeplcom/deepl-php": "*",
+        "deeplcom/deepl-php": "^1.21",
         "spatie/laravel-package-tools": "^1.16",
         "stichoza/google-translate-php": "^5.2",
         "symfony/var-exporter": "^7.1"
     },
     "require-dev": {
         "laravel/pint": "^1.14",
-        "nunomaduro/collision": "^8.1.1||^7.10.0",
-        "orchestra/testbench": "^9.0.0||^8.22.0",
+        "nunomaduro/collision": "^8.1.1",
+        "orchestra/testbench": "^10.0||^9.0",
         "pestphp/pest": "^4.0",
         "pestphp/pest-plugin-arch": "^4.0",
         "pestphp/pest-plugin-laravel": "^4.0"

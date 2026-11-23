@@ -10,6 +10,6 @@ class InvalidFormalityConfigException extends Exception
 {
     public function __construct()
     {
-        parent::__construct("Invalid formality configuration found");
+        parent::__construct('Invalid formality configuration found');
     }
 }

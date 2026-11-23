@@ -4,10 +4,10 @@ namespace RPWebDevelopment\LaravelTranslate;
 
 use RPWebDevelopment\LaravelTranslate\Commands\HasMissingTranslationsCommand;
 use RPWebDevelopment\LaravelTranslate\Commands\LaravelBulkTranslateCommand;
+use RPWebDevelopment\LaravelTranslate\Commands\LaravelTranslateCommand;
 use RPWebDevelopment\LaravelTranslate\Services\Files;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use RPWebDevelopment\LaravelTranslate\Commands\LaravelTranslateCommand;
 
 class LaravelTranslateServiceProvider extends PackageServiceProvider
 {

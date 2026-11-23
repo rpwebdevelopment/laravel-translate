@@ -29,7 +29,7 @@ final class AwsTranslate extends Translate
             'credentials' => [
                 'key' => config('translate.providers.aws.credentials.key'),
                 'secret' => config('translate.providers.aws.credentials.secret'),
-            ]
+            ],
         ]);
     }
 
@@ -39,13 +39,13 @@ final class AwsTranslate extends Translate
     protected function setFormality(array $locale): void
     {
         if (!isset($locale['formality'])) {
-            $this->formality = "FORMAL";
+            $this->formality = 'FORMAL';
 
             return;
         }
 
         if (!in_array($locale['formality'], ['less_formal', 'more_formal'])) {
-            throw new InvalidFormalityConfigException();
+            throw new InvalidFormalityConfigException;
         }
 
         $this->formality = $locale['formality'] === 'more_formal'
@@ -56,8 +56,11 @@ final class AwsTranslate extends Translate
     /**
      * @throws LanguageNotSupportedException
      */
-    public function translate(string $string = '', string $targetLang, string $sourceLang = 'en_GB'): ?string
-    {
+    public function translate(
+        string $string,
+        string $targetLang,
+        string $sourceLang = 'en_GB'
+    ): ?string {
         if ($string === '') {
             return $string;
         }
@@ -85,7 +88,7 @@ final class AwsTranslate extends Translate
             return LanguageCodes::AWS_CODES[$code];
         }
 
-        throw new LanguageNotSupportedException();
+        throw new LanguageNotSupportedException;
     }
 
     private function formatSettings(): array
